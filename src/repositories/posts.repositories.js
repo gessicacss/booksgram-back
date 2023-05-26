@@ -38,3 +38,15 @@ export function getPosts(){
     LEFT JOIN likes ON likes."postId"=posts.id
     GROUP BY posts.id, users."profilePicture", users.name;`);
 }
+
+export function checkIfUserLikedPost(postId, userId) {
+    return db.query(`SELECT * FROM likes WHERE "postId"=$1 AND "userId"=$2`, [postId, userId]);
+}
+
+export function removeLike(postId, userId){
+    return db.query(`DELETE FROM likes WHERE "postId"=$1 AND "userId"=$2`, [postId, userId]);
+}
+
+export function addLike(postId, userId){
+    return db.query(`INSERT INTO likes ("postId", "userId") VALUES ($1, $2)`, [postId, userId]);
+}

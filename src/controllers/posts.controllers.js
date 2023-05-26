@@ -42,3 +42,20 @@ export async function getAllPosts(req, res){
         res.status(500).send(err.message);
     }
 }
+
+export async function toggleLike(req, res) {
+    const { id: postId } = req.params;
+    const { userId } = res.locals.session;
+
+    try {
+        const { rowCount: postLiked} = await checkIfUserLikedPost(postId, userId);
+        if (postLiked){
+            await removeLike(postId, userId);
+            return res.sendStatus(200);
+        }
+        await addLike(postId, userId);
+        res.sendStatus(200);
+    } catch(err) {
+        res.status(500).send(err.message);
+    }
+}
