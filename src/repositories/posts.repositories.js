@@ -36,7 +36,8 @@ export function getPosts(){
     FROM posts
     JOIN users ON users.id=posts."userId" 
     LEFT JOIN likes ON likes."postId"=posts.id
-    GROUP BY posts.id, users."profilePicture", users.name;`);
+    GROUP BY posts.id, users."profilePicture", users.name
+    ORDER BY posts."postedAt" DESC;`);
 }
 
 export function checkIfUserLikedPost(postId, userId) {

@@ -1,4 +1,3 @@
-import { db } from "../database/database.connection.js";
 import { findPostById } from "../repositories/posts.repositories.js";
 
 export default async function validatePost(req, res, next){
